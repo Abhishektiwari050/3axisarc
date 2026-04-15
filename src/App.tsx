@@ -79,7 +79,7 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-4">
-          <Link to="/inquire" className="hidden md:block px-5 py-2.5 rounded-full border border-foreground text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all overflow-hidden relative group">
+          <Link to="/inquire" className="flex items-center px-3 md:px-5 py-2 md:py-2.5 rounded-full border border-foreground text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all overflow-hidden relative group">
             <span className="relative z-10 group-hover:text-background transition-colors duration-500">Inquire Now</span>
             <div className="absolute inset-0 bg-foreground translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
           </Link>
@@ -111,6 +111,13 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
+            <Link 
+              to="/inquire" 
+              className="text-2xl font-serif italic text-accent hover:text-foreground transition-colors" 
+              onClick={() => setIsOpen(false)}
+            >
+              Inquire Now
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
