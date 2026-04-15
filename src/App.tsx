@@ -59,9 +59,10 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full h-20 z-50 bg-background/80 backdrop-blur-[10px] border-b border-zinc-300">
-      <div className="max-w-[1600px] mx-auto h-full px-10 flex items-center justify-between relative">
-        <nav className="hidden md:flex gap-6">
+    <header className="fixed top-0 left-0 w-full h-16 md:h-20 z-50 bg-background/90 backdrop-blur-[12px] border-b border-zinc-200">
+      <div className="max-w-[1600px] mx-auto h-full px-4 md:px-10 flex items-center justify-between relative">
+        {/* Left: Desktop Nav */}
+        <nav className="hidden md:flex flex-1 gap-6">
           {navLinks.map((item) => (
             <Link
               key={item.name}
@@ -73,19 +74,22 @@ const Header = () => {
           ))}
         </nav>
 
-        <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
-          <span className="font-serif italic text-xl tracking-tighter">3axis</span>
-          <span className="font-sans font-black text-xl tracking-tighter">ARC</span>
+        {/* Center: Logo */}
+        <Link to="/" className="md:absolute md:left-1/2 md:-translate-x-1/2 flex items-center gap-1 z-20">
+          <span className="font-serif italic text-lg md:text-xl tracking-tighter">3axis</span>
+          <span className="font-sans font-black text-lg md:text-xl tracking-tighter">ARC</span>
         </Link>
 
-        <div className="flex items-center gap-4">
-          <Link to="/inquire" className="flex items-center px-3 md:px-5 py-2 md:py-2.5 rounded-full border border-foreground text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all overflow-hidden relative group">
+        {/* Right: Actions */}
+        <div className="flex flex-1 items-center justify-end gap-3 md:gap-4">
+          <Link to="/inquire" className="hidden sm:flex items-center px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-foreground text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all overflow-hidden relative group">
             <span className="relative z-10 group-hover:text-background transition-colors duration-500">Inquire Now</span>
             <div className="absolute inset-0 bg-foreground translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
           </Link>
           <button 
-            className="md:hidden p-2"
+            className="p-2 -mr-2 text-foreground hover:text-accent transition-colors transition-transform active:scale-95"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -95,29 +99,32 @@ const Header = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-20 left-0 w-full bg-background border-b border-zinc-300 p-8 flex flex-col gap-6 md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="absolute top-full left-0 w-full bg-background border-b border-zinc-200 overflow-hidden md:hidden"
           >
-            <Link to="/" className="text-2xl font-serif italic hover:text-accent transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
-            {navLinks.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="text-2xl font-serif italic hover:text-accent transition-colors"
+            <div className="p-8 flex flex-col gap-6">
+              <Link to="/" className="text-3xl font-serif italic hover:text-accent transition-colors" onClick={() => setIsOpen(false)}>Home</Link>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="text-3xl font-serif italic hover:text-accent transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="h-px w-full bg-zinc-200 my-2" />
+              <Link 
+                to="/inquire" 
+                className="text-3xl font-serif italic text-accent hover:text-foreground transition-colors" 
                 onClick={() => setIsOpen(false)}
               >
-                {item.name}
+                Inquire Now
               </Link>
-            ))}
-            <Link 
-              to="/inquire" 
-              className="text-2xl font-serif italic text-accent hover:text-foreground transition-colors" 
-              onClick={() => setIsOpen(false)}
-            >
-              Inquire Now
-            </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
