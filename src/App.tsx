@@ -171,9 +171,20 @@ const Hero = () => {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-20 min-h-[calc(100vh-120px)] flex flex-col md:flex-row max-w-[1600px] mx-auto overflow-hidden"
+      className="relative pt-20 min-h-[100svh] flex flex-col md:flex-row max-w-[1600px] mx-auto overflow-hidden bg-background"
       style={{ perspective: 1500 }}
     >
+      {/* Background Kinetic Text */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03] select-none flex items-center justify-center -z-10">
+        <motion.h2 
+          animate={{ x: [0, -200, 0] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="text-[30vw] font-black whitespace-nowrap"
+        >
+          2026 ARCHITECTURE 2026 ARCHITECTURE
+        </motion.h2>
+      </div>
+
       {/* Left Column (span 7) */}
       <motion.div 
         className="flex-[7] flex flex-col justify-between p-10 md:p-14 border-r border-zinc-300 z-10"
@@ -194,13 +205,13 @@ const Hero = () => {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-7xl md:text-[90px] leading-[0.9] font-black tracking-[-0.04em] uppercase my-5 relative"
+          className="text-[12vw] md:text-[90px] leading-[0.9] font-black tracking-[-0.04em] uppercase my-8 md:my-5 relative"
           style={{ transform: "translateZ(80px)" }}
         >
           <motion.div style={{ x: translateX, y: translateY }}>
             SHAPING THE <br/>
             <span className="text-accent">FUTURE</span> OF <br/>
-            <span className="serif-italic">Residency</span>
+            <span className="serif-italic lowercase text-[14vw] md:text-[90px]">Residency</span>
           </motion.div>
         </motion.h1>
 
@@ -513,6 +524,7 @@ const ExpertiseCard = ({ item, index }: { item: { title: string, desc: string },
       className="group cursor-pointer"
     >
       <motion.div
+        whileTap={{ scale: 0.98 }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="p-8 border border-foreground/10 hover:border-accent transition-all duration-500 bg-white/50 backdrop-blur-sm relative overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-accent/20 h-full"
       >
@@ -535,8 +547,8 @@ const ExpertiseSection = () => {
   ];
 
   return (
-    <section className="max-w-[1600px] mx-auto py-32 px-4 md:px-8">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+    <section className="max-w-[1600px] mx-auto py-20 md:py-32 px-4 md:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
         <div className="md:col-span-4">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent block mb-4">Core Competencies</span>
           <h2 className="text-5xl font-serif italic mb-8">Architectural<br/>Expertise.</h2>
