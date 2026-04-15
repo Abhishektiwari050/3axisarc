@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Georgia", ui-serif, serif;
+  
+  --color-background: #EBEBE8;
+  --color-foreground: #18181B;
+  --color-accent: #0066FF;
+  --color-zinc-300: #D4D4D8;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-accent selection:text-white overflow-x-hidden;
+    cursor: crosshair;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: 2px currentColor;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .noise-overlay {
+    @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .grid-line {
+    @apply absolute top-0 bottom-0 w-[1px] bg-foreground/10;
+  }
+
+  .clip-reveal {
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .clip-reveal {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .serif-italic {
+    @apply font-serif italic font-normal normal-case tracking-normal;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-foreground/20 hover:bg-foreground/40 transition-colors;
+}
