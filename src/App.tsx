@@ -369,6 +369,7 @@ const ProjectItem = ({ title, category, year, image }: ProjectItemProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      whileTap={{ scale: 0.99 }}
       className="group relative w-full h-[300px] border-b border-foreground/10 flex items-center px-4 md:px-8 cursor-pointer overflow-hidden"
       style={{ perspective: 1200 }}
     >
@@ -377,9 +378,9 @@ const ProjectItem = ({ title, category, year, image }: ProjectItemProps) => {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <div className="flex-1 grid grid-cols-12 items-center z-10 relative" style={{ transform: "translateZ(50px)" }}>
-          <div className="col-span-1 text-[10px] font-mono text-foreground/40 group-hover:text-white transition-colors duration-500">{year}</div>
-          <div className="col-span-7 md:col-span-5">
-            <h3 className="text-4xl md:text-6xl font-sans group-hover:font-serif group-hover:italic group-hover:text-white group-hover:scale-105 origin-left inline-block transition-all duration-500">
+          <div className="col-span-2 md:col-span-1 text-[10px] font-mono text-foreground/40 group-hover:text-white group-active:text-white transition-colors duration-500">{year}</div>
+          <div className="col-span-10 md:col-span-5">
+            <h3 className="text-3xl md:text-6xl font-sans group-hover:font-serif group-hover:italic group-active:font-serif group-active:italic group-hover:text-white group-active:text-white group-hover:scale-105 group-active:scale-105 origin-left inline-block transition-all duration-500">
               {title}
             </h3>
           </div>
@@ -388,21 +389,22 @@ const ProjectItem = ({ title, category, year, image }: ProjectItemProps) => {
           </div>
         </div>
 
-        <div className="absolute inset-0 [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] z-0 origin-bottom transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden rounded-lg" style={{ transform: "translateZ(-20px)" }}>
+        {/* Improved mobile image reveal */}
+        <div className="absolute inset-0 z-0 origin-bottom transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden rounded-lg [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] group-active:[clip-path:inset(0_0_0_0)] md:group-hover:[clip-path:inset(20%_10%_20%_10%)] md:group-hover:opacity-100" style={{ transform: "translateZ(-20px)" }}>
           <img 
             src={image} 
             alt={title} 
             loading="eager"
             fetchPriority="high"
-            className="absolute inset-[-10%] w-[120%] h-[120%] object-cover transition-transform duration-[5s] ease-out translate-y-8 group-hover:translate-y-0 group-hover:scale-105 group-hover:rotate-1"
+            className="absolute inset-[-10%] w-[120%] h-[120%] object-cover transition-transform duration-[5s] ease-out translate-y-8 group-hover:translate-y-0 group-active:translate-y-0 group-hover:scale-105 group-active:scale-105 group-hover:rotate-1"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-700" />
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 group-active:bg-black/20 transition-colors duration-700" />
         </div>
 
-        <div className="absolute right-10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-8 group-hover:translate-x-0 z-20" style={{ transform: "translateZ(80px)" }}>
-          <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,102,255,0.5)]">
-            <ArrowUpRight size={32} className="group-hover:rotate-45 transition-transform duration-500" />
+        <div className="absolute right-4 md:right-10 opacity-100 md:opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:translate-x-8 group-hover:translate-x-0 group-active:translate-x-0 z-20" style={{ transform: "translateZ(80px)" }}>
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,102,255,0.5)]">
+            <ArrowUpRight size={24} className="md:size-32 group-hover:rotate-45 transition-transform duration-500" />
           </div>
         </div>
       </motion.div>
@@ -653,9 +655,9 @@ const Footer = () => {
           />
         </div>
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 mb-20 md:mb-32">
             <div>
-              <h2 className="text-6xl md:text-8xl font-serif italic mb-12 hover:text-accent transition-colors cursor-pointer">
+              <h2 className="text-5xl md:text-8xl font-serif italic mb-12 hover:text-accent transition-colors cursor-pointer leading-tight">
                 Let's build<br/>together.
               </h2>
               <div className="flex flex-wrap gap-4">
@@ -667,20 +669,20 @@ const Footer = () => {
               </div>
             </div>
             
-            <div className="flex flex-col justify-end items-start md:items-end gap-8">
-              <div className="text-right">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start md:items-end md:justify-end text-left sm:text-right">
+              <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/50 mb-2">Office</p>
-                <p className="text-xl">Lucknow, Uttar Pradesh<br/>India, 226001</p>
+                <p className="text-lg md:text-xl">Lucknow, Uttar Pradesh<br/>India, 226001</p>
               </div>
-              <div className="text-right">
+              <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-background/50 mb-2">Inquiries</p>
-                <p className="text-xl">hello@3axisarc.com<br/>+91 522 3344 556</p>
+                <p className="text-lg md:text-xl">hello@3axisarc.com<br/>+91 522 3344 556</p>
               </div>
             </div>
           </div>
 
-          <div className="relative h-[20vw] flex items-center justify-center mb-20">
-            <h2 className="text-[25vw] font-black text-background/5 uppercase leading-none select-none">
+          <div className="relative h-[25vw] md:h-[20vw] flex items-center justify-center mb-20">
+            <h2 className="text-[18vw] md:text-[25vw] font-black text-background/5 uppercase leading-none select-none text-center">
               3AXIS ARC
             </h2>
           </div>
