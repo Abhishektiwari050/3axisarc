@@ -87,7 +87,7 @@ const Header = () => {
             <div className="absolute inset-0 bg-foreground translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
           </Link>
           <button 
-            className="p-2 -mr-2 text-foreground hover:text-accent transition-colors transition-transform active:scale-95"
+            className="md:hidden p-2 -mr-2 text-foreground hover:text-accent transition-colors transition-transform active:scale-95"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Menu"
           >
